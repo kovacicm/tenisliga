@@ -1,0 +1,123 @@
+@page
+@model IgraciModel
+
+@{
+    ViewData["Title"] = "Igrači prijavljeni za sezonu 02/2024";
+}
+
+<head>
+    <title>@ViewData["Title"]</title>
+    <style>
+        /* Basic styling for the table */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+            cursor: pointer; /* Add a pointer cursor to indicate that the columns are sortable */
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Grey row color */
+        }
+
+        tr:nth-child(odd) {
+            background-color: #fff; /* White row color */
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+
+    <script>
+        // JavaScript for sorting the table
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("itemTable");
+            switching = true;
+            // Set the sorting direction to ascending:
+            dir = "asc";
+            while (switching) {
+                switching = false;
+                rows = table.getElementsByTagName("TR");
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
+                } else {
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>@ViewData["Title"]</h1>
+    <table id="itemTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Igrač</th>
+                <th onclick="sortTable(1)">ELO</th>
+                <th onclick="sortTable(2)">Liga</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PlayerGroupModel)
+            {
+                <tr>
+                    <td>
+                    <a asp-page="IgracDetalj" asp-route-id="@item.Id">@item.Name</a>
+                    </td>
+                    <td>@item.Elo</td>
+                    <td>@item.GroupName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-center">
+    <p>*Igrači startaju sa ELO rejtingom 1500. U lige se raspoređuju prije početka nove sezone prema pravilima lige.</p>
+    </div>
+</body>
+

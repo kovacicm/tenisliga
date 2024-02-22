@@ -1,0 +1,138 @@
+@page
+@model LigaModel
+
+@{
+    ViewData["Title"] = "Pyramid View";
+}
+
+<style>
+    /* Style for the table */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ccc; /* Add borders to the table */
+    }
+
+    /* Style for table headers */
+    th {
+        text-align: center; /* Center align header text */
+        background-color: #f2f2f2; /* Header background color */
+        border: 1px solid #ccc; /* Add borders to header cells */
+    }
+
+    /* Style for table rows */
+    tr {
+        border: 1px solid #ccc; /* Add borders to table rows */
+    }
+
+    /* Style for table data cells */
+    td {
+        text-align: center; /* Center align data cells */
+        padding: 8px; /* Add padding to data cells for spacing */
+        border: 1px solid #ccc; /* Add borders to data cells */
+    }
+</style>
+
+
+<form method="post">
+    <div class="form-group">
+        <label for="season" style="margin-bottom: 10px;">Sezona:</label>
+        <select class="form-control" id="group" asp-for="SelectedOptionSeason">
+            <option value="">-- Izaberi sezonu --</option>
+            @foreach (var season in Model.SeasonOptions)
+            {
+                <option value="@season.Id">@season.SeasonName</option>
+            }
+        </select>
+        <label for="group" style="margin-bottom: 10px;">Liga:</label>
+        <select class="form-control" id="group" asp-for="SelectedOption">
+            <option value="">-- Izaberi ligu --</option>
+            @foreach (var group in Model.DataOptions)
+            {
+                <option value="@group.Id">@group.GroupName</option>
+            }
+        </select>
+        <input type="submit" value="Prikaži" style="margin-top: 10px;" class="btn btn-primary" />
+    </div>
+</form>
+
+    @if (Model.DisplayedData != null && Model.DisplayedData.Any())
+    {
+    var count = 1;
+    <table style="margin-top: 20px;margin-bottom: 20px;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Ime</th>
+                    <th>Odigrao</th>
+                    <th>Pobjedio</th>
+                    <th>Gem razlika</th>
+                    <th>Set razlika</th>
+                    <th>Bodovi</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+                @foreach (var item in Model.DisplayedData)
+                {                    
+                    <tr>
+                        <td>@count.</td>
+                        <td><a asp-page="IgracDetalj" asp-route-id="@item.PlayerId">@item.Name</a></td>
+                        <td>@item.NumMatches</td>
+                        <td>@item.WonMatches</td>
+                        <td>@item.GemWon : @item.GemLost</td>
+                        <td>@item.SetWon : @item.SetLost</td>
+                        <td>@item.Points</td>
+                    </tr>
+                    count = count + 1;
+                }
+            </tbody>
+        </table>
+
+    <p><b> Rezultati: </b></p>
+
+    <div class="container" style="margin-top: 20px">
+            @foreach (var match in Model.Results)
+            {
+                <div class="row">
+                    <div class="col-md-3">
+                        @match.Date
+                    </div>
+                    <div class="col-md-3">
+                        @match.WinnerName
+                    </div>
+                    <div class="col-md-3">
+                        @match.LoserName
+                    </div>
+                @if (match.MatchStatus == 1)
+                {
+                    @if (@match.Set3winner > 0)
+                    {
+                        <div class="col-md-3">
+                            @match.Set1winner:@match.Set1loser @match.Set2winner:@match.Set2loser @match.Set3winner:@match.Set3loser
+                        </div>
+                    }
+                    @if (@match.Set3winner == 0)
+                    {
+                        <div class="col-md-3">
+                            @match.Set1winner:@match.Set1loser @match.Set2winner:@match.Set2loser
+                        </div>
+                    }
+                }
+                else if (match.MatchStatus == 4)
+                {
+                    <div class="col-md-3">
+                        2:0 (u setovima)  - predaja
+                    </div>
+                }
+
+                </div>
+                <hr />
+            }
+        </div>
+    }
+    else
+    {
+    <p style="margin-top: 20px;">Nema podataka za izabranu opciju.</p>
+    }
+

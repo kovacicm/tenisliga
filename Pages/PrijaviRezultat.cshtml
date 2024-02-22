@@ -1,0 +1,122 @@
+﻿
+@page
+@model PrijaviRezultatModel
+@{
+    ViewData["Title"] = "Prijavi rezultat";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="group">Liga:</label>
+        <select class="form-control" id="group" asp-for="SelectedGroup">
+            <option value="">-- Izaberi ligu --</option>
+            @foreach (var group in Model.Groups)
+            {
+                <option value="@group.Id">@group.GroupName</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3"></div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="player1">Pobjednik:</label>
+                <select class="form-control" id="player1" asp-for="SelectedPlayer1">
+                    <option value="">-- Izaberi pobjednika --</option>
+                    @foreach (var player in Model.Players)
+                    {
+                        <option value="@player.Id">@player.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="player1Games1">Set 1:</label>
+                <input class="form-control" type="number" id="player1Games1" asp-for="Player1Set1" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="player1Games2">Set 2:</label>
+                <input class="form-control" type="number" id="player1Games2" asp-for="Player1Set2" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="player1Games3">Set 3:</label>
+                <input class="form-control" type="number" id="player1Games3" asp-for="Player1Set3" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="player2">Poraženi:</label>
+                <select class="form-control" id="player2" asp-for="SelectedPlayer2">
+                    <option value="">-- Izaberi poraženog --</option>
+                    @foreach (var player in Model.Players)
+                    {
+                        <option value="@player.Id">@player.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="player2Games1">Set 1:</label>
+                <input class="form-control" type="number" id="player2Games1" asp-for="Player2Set1" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="player2Games2">Set 2:</label>
+                <input class="form-control" type="number" id="player2Games2" asp-for="Player2Set2" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="player2Games3">Set 3:</label>
+                <input class="form-control" type="number" id="player2Games3" asp-for="Player2Set3" />
+            </div>
+        </div>
+    </div>
+    
+    <div class="mb-3"></div>
+
+    <div class="form-group">
+        <label for="checkbox1">Prijateljski meč  </label>
+        <input class="form-check-input" type="checkbox" id="checkbox1" asp-for="Friendly" />
+    </div>
+    
+    <div class="mb-3"></div>
+
+    <div class="form-group">
+        <label for="checkbox2">Susret završen predajom  </label>
+        <input class="form-check-input" type="checkbox" id="checkbox2" asp-for="Predaja" />
+    </div>
+    
+    <div class="mb-3"></div>
+
+    <div class="form-group mb-3">
+        <label for="matchDate">Datum:</label>
+        <input class="form-control" type="date" id="matchDate" asp-for="MatchDate" value="@DateTime.Now.ToString("yyyy-MM-dd")  />
+    </div>
+
+    <div class="mb-3"></div>
+
+    <div class="form-group">
+        <label for="kod">Šifra za unos rezultata:</label>
+        <input class="form-control" type="text" id="kod" asp-for="Sifra" />
+    </div>
+
+    <div class="mb-3"></div>
+
+    <button type="submit" class="btn btn-primary">Prijavi</button>
+
+</form>

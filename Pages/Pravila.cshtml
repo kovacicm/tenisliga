@@ -1,0 +1,19 @@
+@page
+@model PravilaModel
+@{
+    ViewData["Title"] = "Pravila Tenis lige Omiš";
+}
+
+<div class="text-center">
+<div class="container">
+    <h1>@Model.MainTitle</h1>
+
+    @foreach (var paragraph in Model.Paragraphs)
+    {
+        <div class="paragraph">
+            <p><b>@paragraph.Subtitle</b></p>
+            <p>@paragraph.Content</p>
+        </div>
+    }
+</div>
+</div>

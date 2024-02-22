@@ -1,0 +1,64 @@
+﻿@page 
+@model RezultatiPocetna
+
+
+<p><b> Posljednji rezultati: </b></p>
+
+<div class="container" style="margin-top: 20px">
+    @foreach (var match in Model.Results)
+    {
+        <div class="row">
+            <div class="col-md-3">
+                @match.Date
+            </div>
+            <div class="col-md-3">
+                @match.WinnerName
+            </div>
+            <div class="col-md-3">
+                @match.LoserName
+            </div>
+
+            @if (match.MatchStatus == 1) {
+            @if (@match.Set3winner > 0)
+            {
+                <div class="col-md-3">
+                    @match.Set1winner:@match.Set1loser @match.Set2winner:@match.Set2loser @match.Set3winner:@match.Set3loser
+                </div>
+            }
+            @if (@match.Set3winner == 0)
+            {
+                <div class="col-md-3">
+                    @match.Set1winner:@match.Set1loser @match.Set2winner:@match.Set2loser
+                </div>
+            }
+            }
+            else if (match.MatchStatus == 3)
+            {
+                @if (@match.Set3winner > 0)
+                {
+                    <div class="col-md-3">
+                        @match.Set1winner:@match.Set1loser @match.Set2winner:@match.Set2loser @match.Set3winner:@match.Set3loser (prijateljska)
+                    </div>
+                }
+                @if (@match.Set3winner == 0)
+                {
+                    <div class="col-md-3">
+                        @match.Set1winner:@match.Set1loser @match.Set2winner:@match.Set2loser (prijateljska)
+                    </div>
+                }
+
+            } else if (match.MatchStatus == 4)
+            {
+                <div class="col-md-3">
+                   2:0 (u setovima)  - predaja 
+                </div>
+            }
+
+        </div>
+        <hr />
+    }
+</div>
+
+<form method="post">
+<button type="submit" class="btn btn-primary">Prijavi novi rezultat</button>
+</form>
