@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAw49PYdyWyEG7SPLl+pnYZgAAAAACAAAAAAADZgAAwAAAABAAAAABeTCwuS0kZgahFSchF7z+AAAAAASAAACgAAAAEAAAAC0dhh1T77xE741PknB1fSWAAAAAj1Phijm+j5oAuzG6WFxDK3W+85DAZBG/vHwov2/oqdR/lYru/g3ttuSJgh5x8HsTwcbI6KQBOW/EnIESUo1kJ3GH+khFPhfopXZdLZPATv4iL1YCT7y35l+C8B48uH7cmq9LFMJ0Uhxq603kWiXy/Au6a9watRnx39IKhYu9O6gUAAAAgYl9xIRVrz8CoSgqA4rxjxuwCu0=</EncryptedPassword>
+    <History>False|2023-09-24T12:28:09.0610542Z;False|2023-09-24T14:27:44.9557631+02:00;False|2023-09-24T14:16:46.4285006+02:00;False|2023-09-24T14:14:31.3602440+02:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <EFMigrations Include="AppDbContext">
+      <Value>Data Source=tlomis.db%3b</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>
